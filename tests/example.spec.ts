@@ -20,7 +20,6 @@ test.only('Login Functionality', async ({ page }) => {
   console.log(jasonData.Username);
 
   await LoginPage.login(exceldata.Username, exceldata.Password);
-
   // await expect(page).toHaveTitle('DanpheHealth');
   // await expect.soft(page).toHaveTitle('DanpehHealth');
   // console.log('continue even Failing')
