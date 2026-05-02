@@ -1,0 +1,77 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: example.spec.ts >> Login Functionality
+- Location: tests\example.spec.ts:7:6
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('//p[text()=\'Registered Patient \']')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for locator('//p[text()=\'Registered Patient \']')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e7]:
+  - img "pre-loader" [ref=e10]
+  - heading "Connecting to Danphe app...." [level=3] [ref=e14]
+```
+
+# Test source
+
+```ts
+  1  | import { expect, Locator, Page } from '@playwright/test';
+  2  | import BasePage from '../utils/BasePage';
+  3  | 
+  4  | export default class loginPage {
+  5  |   private page: Page;
+  6  |   private BasePage;
+  7  |   private Username: Locator;
+  8  |   private Password: Locator;
+  9  |   private signIn: Locator;
+  10 |   private RegElement: Locator;
+  11 |   constructor(page: Page) {
+  12 |     this.page = page;
+  13 |     this.Username = this.page.locator('#username_id') //getByRole('textbox', { name: 'Username' });
+  14 |     this.Password = this.page.getByRole('textbox', { name: 'Password' });
+  15 |     this.signIn = this.page.getByRole('button', { name: 'Sign in' });
+  16 |     this.RegElement = this.page.locator("//p[text()='Registered Patient ']");
+  17 |     this.BasePage = new BasePage(this.page);
+  18 |   }
+  19 |   async login(user: string, pass: string) {
+  20 |     console.log(user, pass);
+  21 |     await this.BasePage.fill(this.Username, user);
+  22 |     await this.BasePage.fill(this.Password, pass);
+  23 |     await this.BasePage.click(this.signIn);
+  24 |   }
+  25 | 
+  26 |   async verification(textExpect: string) {
+  27 |     // await this.page.waitForLoadState('domcontentloaded');
+  28 |     // await this.RegElement.waitFor();
+> 29 |     await expect(this.RegElement).toBeVisible();
+     |                                   ^ Error: expect(locator).toBeVisible() failed
+  30 |     await expect(this.RegElement).toHaveText(textExpect);
+  31 |   }
+  32 | 
+  33 |   
+  34 | }
+  35 | 
+  36 | 
+  37 | 
+```

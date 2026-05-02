@@ -1,0 +1,10 @@
+{
+  "TC_001": {
+    "Username": "admin",
+    "Password": "pass123"
+  },
+  "TC_002": {
+    "Username": "User",
+    "Password": "pass"
+  }
+}

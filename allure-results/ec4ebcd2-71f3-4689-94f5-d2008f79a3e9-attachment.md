@@ -1,0 +1,75 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: example.spec.ts >> Login Functionality
+- Location: tests\example.spec.ts:6:6
+
+# Error details
+
+```
+Error: expect(page).toHaveTitle(expected) failed
+
+Expected: "DanphHealth"
+Received: "DanpheHealth"
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveTitle" with timeout 5000ms
+    9 × unexpected value "DanpheHealth"
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e7]:
+  - img "pre-loader" [ref=e10]
+  - heading "Connecting to Danphe app...." [level=3] [ref=e14]
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect, Page } from '@playwright/test';
+  2  | import loginPage from '../pages/loginPage';
+  3  | import BasePage from '../utils/BasePage';
+  4  | import testData from '../test-data/TestData.json'
+  5  | 
+  6  | test.only('Login Functionality', async ({ page }) => {
+  7  |   const LoginPage = new loginPage(page);
+  8  |   const basePage = new BasePage(page);
+  9  | 
+  10 |   await basePage.navigate('https://healthapp.yaksha.com');
+  11 | 
+  12 |   const data = await basePage.readTestData('TC_001', 'CREDS');
+  13 |   const exceldata = await basePage.getRowDataWithoutJSON('TC_001', 'CREDS');
+  14 |   
+  15 |   console.log(exceldata)
+  16 |   
+  17 |   const jasonData = testData["TC_001"];
+  18 |   console.log(jasonData.Username);
+  19 | 
+  20 |   await LoginPage.login(exceldata.Username, exceldata.Password);
+  21 | 
+> 22 |   await expect(page).toHaveTitle('DanphHealth');
+     |                      ^ Error: expect(page).toHaveTitle(expected) failed
+  23 |   
+  24 | });
+  25 | 
+  26 | test('get started link', async ({ page }) => {
+  27 |   
+  28 |   await page.goto('https://playwright.dev/');
+  29 | 
+  30 |   // Click the get started link.
+  31 |   await page.getByRole('link', { name: 'Get started' }).click();
+  32 | 
+  33 |   // Expects page to have a heading with the name of Installation.
+  34 |   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  35 | 
+  36 | });
+```
