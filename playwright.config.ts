@@ -51,6 +51,10 @@ export default defineConfig({
     },
 
     // {
+    //   name: 'msedge',
+    //   use: { ...devices['Desktop Edge'] },
+    // },
+    // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
     // },
