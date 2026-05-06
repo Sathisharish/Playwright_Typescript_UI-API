@@ -27,7 +27,7 @@ test.only('Login Functionality', async ({ page }) => {
   await dispensary.verifyDispensaryToolTips();
 });
 
-test('get started link duplicate', async ({ page }) => {
+/*test('get started link duplicate', async ({ page }) => {
 
   await page.goto('https://playwright.dev/');
 
@@ -37,5 +37,5 @@ test('get started link duplicate', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 
-});
+});*/
 
