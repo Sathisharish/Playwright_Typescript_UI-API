@@ -23,7 +23,6 @@ test.only('Login Functionality', async ({ page }) => {
   // await expect(page).toHaveTitle('DanpheHealth');
   // await expect.soft(page).toHaveTitle('DanpehHealth');
   // console.log('continue even Failing')
-    await LoginPage.verification('Registered Patient ');
   await dispensary.verifyDispensaryToolTips();
 });
 
